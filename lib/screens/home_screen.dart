@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:media_player/models/song_model.dart';
+import 'package:media_player/widgets/section_header.dart';
+import 'package:media_player/widgets/song_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<Song> songs = Song.songs;
+
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -22,8 +27,9 @@ class HomeScreen extends StatelessWidget {
         bottomNavigationBar: const _CustomNavigationBar(),
         body: SingleChildScrollView(
           child: Column(
-            children: const [
-              _DiscoverMusic()
+            children: [
+              const _DiscoverMusic(),
+              _TrendingMusic(songs: songs)
             ],
           )
         ),
@@ -113,6 +119,37 @@ class _DiscoverMusic extends StatelessWidget {
     );
   }
 }
+
+class _TrendingMusic extends StatelessWidget {
+  const _TrendingMusic({Key? key, required this.songs}) : super(key: key);
+
+  final List<Song> songs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          const SectionHeader(title: "Популярная музыка"),
+          const SizedBox(height: 20,),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.27,
+            child: ListView.builder(
+                itemCount: songs.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return SongCard(song: songs[index]);
+                }
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+
 
 
 
