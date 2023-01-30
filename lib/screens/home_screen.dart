@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:media_player/models/playlist_model.dart';
 import 'package:media_player/models/song_model.dart';
-import 'package:media_player/widgets/section_header.dart';
-import 'package:media_player/widgets/song_card.dart';
+import 'package:media_player/widgets/widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -9,6 +9,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Song> songs = Song.songs;
+    List<Playlist> playlist = Playlist.playlist;
 
     return Container(
       decoration: BoxDecoration(
@@ -29,7 +30,25 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               const _DiscoverMusic(),
-              _TrendingMusic(songs: songs)
+              _TrendingMusic(songs: songs),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    const SectionHeader(title: "Плейлист"),
+                    ListView.builder(
+                      itemCount: playlist.length,
+                        padding: const EdgeInsets.only(top: 20),
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemBuilder: ((context, index) {
+                          return PlaylistCard(playlist: playlist[index]);
+                    }
+                    )
+              )
+                  ],
+                ),
+              )
             ],
           )
         ),
