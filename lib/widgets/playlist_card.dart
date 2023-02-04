@@ -48,7 +48,7 @@ class PlaylistCard extends StatelessWidget {
                   const SizedBox(height: 5,),
                   Text(
                     "${playlist.songs.length} песни",
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 12),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 16),
                   )
                 ],
               ),
